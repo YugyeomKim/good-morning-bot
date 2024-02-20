@@ -14,7 +14,16 @@ const sayGoodMorning = schedule.scheduleJob(
     const formattedToday = format(today, "yy. MM. dd. (eee)", { timeZone });
     console.log("Good Morning, it's " + formattedToday);
     const response = await axios.post(slackWebhookUrl, {
-      text: `<!channel>\n\n${formattedToday}\n굿모닝! :일출:\n1. 시작시간\n2. 종료 시간\n3. 업무 내용`,
+      blocks: [
+        {
+          type: "section",
+          text: {
+            type: "plain_text",
+            text: `<!channel>\n\n${formattedToday}\n굿모닝! :일출:\n1. 시작시간\n2. 종료 시간\n3. 업무 내용`,
+            emoji: true,
+          },
+        },
+      ],
     });
     console.log(response.data);
   }
