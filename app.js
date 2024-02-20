@@ -6,14 +6,14 @@ require("dotenv").config();
 const slackWebhookUrl = process.env.SLACK_WEBHOOK_URL;
 
 const sayGoodMorning = schedule.scheduleJob(
-  { hour: 6, minute: 30 },
+  { hour: 21, minute: 30 },
   async () => {
     const today = Date.now();
     const formattedToday = format(today, "yy. MM. dd. (eee)");
     console.log("Good Morning, it's " + formattedToday);
     const response = await axios.post(slackWebhookUrl, {
-      text: `@channel ${formattedToday}\n1. 시작시간\n2. 종료 시간\n3.업무 내용`,
+      text: `<!channel> ${formattedToday} :일출:\n1. 시작시간\n2. 종료 시간\n3. 업무 내용`,
     });
-    console.log(response);
+    console.log(response.data)
   }
 );
